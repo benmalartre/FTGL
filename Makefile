@@ -1,7 +1,7 @@
 # FTGL makefile
 
 # Macros
-INCLUDES = -Ifreetype-2.4.0/include
+INCLUDES = -I../freetype-2.4.0/include
 LIBS = -lfreetype
 CFLAGS = -Wall -static
 
@@ -13,6 +13,7 @@ main: FTFontAtlas.cpp FTFontAtlas.h
 
 ftgl.a: FTGL
 	        ar rcs $@ $^
-
+deploy:
+	cp ftgl.a /home/benmalartre/RnD/PureBasic/Noodle/libs/x64/linux/ftgl.a
 clean:
-	rm -rf *.o FTGL
+	rm -rf *.o *.a *.so FTGL
