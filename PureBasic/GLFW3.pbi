@@ -431,13 +431,13 @@ CompilerSelect #PB_Compiler_OS
   ;  Windows
   ;¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
   CompilerCase #PB_OS_Windows
-      ImportC "..\thirdparties\libs\GLFW3.lib"
+      ImportC "..\Dependencies\libs\GLFW3.lib"
 
   ;___________________________________________________________________________
   ;  Linux
   ;¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
   CompilerCase #PB_OS_Linux
-      ImportC "../libs/x64/linux/"
+      ImportC "../Dependencies/libs/x64/linux/"
   
   ;___________________________________________________________________________
   ;  Mac OS/X
@@ -447,7 +447,7 @@ CompilerSelect #PB_Compiler_OS
     ImportC "/System/Library/Frameworks/IOKit.framework/IOKit" : EndImport
     ImportC "/System/Library/Frameworks/Foundation.framework/Foundation" : EndImport
     ImportC "/System/Library/Frameworks/AppKit.framework/AppKit" : EndImport
-    ImportC "../thirdparties/libs/glfw3.a"
+    ImportC "../Dependencies/libs/glfw3.a"
 CompilerEndSelect
 
 	;/* GLFW initialization, termination And version querying */
@@ -695,8 +695,8 @@ Procedure glfwTestWindow(x.i,y.i,width.i,height.i,name.s="",options.i=#PB_Window
   glfwSetWindowRefreshCallback(*window,@GLFW_WindowRefresh_Callback())
   ProcedureReturn *window
 EndProcedure
-; IDE Options = PureBasic 5.42 LTS (MacOS X - x64)
-; CursorPosition = 445
-; FirstLine = 428
+; IDE Options = PureBasic 5.71 LTS (MacOS X - x64)
+; CursorPosition = 449
+; FirstLine = 429
 ; Folding = ----
 ; EnableXP

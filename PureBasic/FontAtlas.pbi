@@ -54,8 +54,15 @@ Structure FTGL_Point
   t.f
 EndStructure
 
-ImportC "/Users/benmalartre/Documents/RnD/FTGL/FontAtlas/freetype.a" : EndImport
-ImportC "/Users/benmalartre/Documents/RnD/FTGL/FontAtlas/ftgl.a"
+CompilerSelect #PB_Compiler_OS
+  CompilerCase #PB_OS_Windows
+    ImportC "../Dependencies/libs/freetype.lib" : EndImport
+    ImportC "../Dependencies/libs/ftgl.lib"
+  CompilerDefault
+    ImportC "../Dependencies/libs/freetype.a" : EndImport
+    ImportC "../Dependencies/libs/ftgl.a"
+CompilerEndSelect
+  
   FT_CreateFontAtlas(file_name.p-utf8,size_px.l)
   FT_DeleteFontAtlas(*atlas.FTGL_FontAtlas)
 ;   FT_GetAtlasWidth(*atlas.FTGL_FontAtlas)
@@ -368,7 +375,7 @@ EndDataSection
 ; 
 ; glfwDestroyWindow(*window)
 ; IDE Options = PureBasic 5.71 LTS (MacOS X - x64)
-; CursorPosition = 139
-; FirstLine = 119
+; CursorPosition = 62
+; FirstLine = 53
 ; Folding = --
 ; EnableXP
