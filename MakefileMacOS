@@ -16,3 +16,8 @@ ftgl.a: FTGL
 
 clean:
 	rm -rf *.o FTGL
+	
+deploy:
+	+make -f MakefileMacOS
+	@cp ftgl.a Dependencies/libs/
+	@cp ftgl.a ../PureBasic/Noodle/libs/x64/macos/
