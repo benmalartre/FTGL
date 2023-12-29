@@ -1,23 +1,43 @@
 # FTGL makefile
 
-# Macros
-INCLUDES = -Ifreetype-2.4.0/include
-LIBS = -lfreetype
-CFLAGS = -Wall -static
+INCLUDES = -Ifreetype/include
+LDFLAGS = -static -lfreetype -lz
+
+# settings
+#
+CFLAGS = -DPLATFORM_DARWIN \
+	-O3 \
+	-D_LANGUAGE_C_PLUS_PLUS\
+	-mmacosx-version-min=10.9\
+	-fPIC\
+	-DNDEBUG\
+	-static\
+	-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+
+C++FLAGS = $(CFLAGS) \
+	-std=c++11 \
+	-stdlib=libc++ \
+	-fno-gnu-keywords \
+	-fpascal-strings  \
+	-Wno-deprecated \
+	-Wpointer-arith \
+	-Wwrite-strings \
+	-Wno-long-long \
+	-arch arm64 \
+	-mmacosx-version-min=11
 
 # Rules
-all: main ftgl.a
+all: main libftgl.a
 
 main: FTFontAtlas.cpp FTFontAtlas.h
-	g++ -c -o FTGL  $(CFLAGS) FTFontAtlas.cpp $(INCLUDES)
+	clang++ -c -o FTGL  $(C++FLAGS) FTFontAtlas.cpp $(INCLUDES)
 
-ftgl.a: FTGL
-	        ar rcs $@ $^
+libftgl.a: FTGL
+	ar rcs $@ $^
 
 clean:
 	rm -rf *.o FTGL
 	
 deploy:
 	+make -f MakefileMacOS
-	@cp ftgl.a Dependencies/libs/
-	@cp ftgl.a ../PureBasic/Noodle/libs/x64/macos/
+	@cp libftgl.a ../Noodle/libs/x64/macosx/

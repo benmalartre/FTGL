@@ -12,7 +12,7 @@ main: FTFontAtlas.cpp FTFontAtlas.h
 	g++ -c -o FTGL  $(CFLAGS) FTFontAtlas.cpp $(INCLUDES)
 
 ftgl.a: FTGL
-	        ar rcs $@ $^
+	ar rcs $@ $^
 deploy:
 	cp ftgl.a /home/benmalartre/RnD/PureBasic/Noodle/libs/x64/linux/ftgl.a
 clean:
