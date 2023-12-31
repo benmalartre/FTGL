@@ -1,64 +1,9 @@
-# Compiled Object files
-*.slo
-*.lo
+# build folder
+build/
+
+# build files
 *.o
 *.obj
-*.so
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Cache files
-*~
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Eclipse Projects
-*.cproject
-*.project
-
-# MacOS Files
-*.DS_Store
-*.xcodeproj
-*.bundle
-
-# Visual Studio Files
-*.ncb
-*.sln
-*.suo
-*.vcxproj*
-*.user
-*.pdb
-*.idb
-*.htm
-*.manifest
-*.obj
-*.tlog
-*.log
-*.sdf
-*.opensdf
-
-# Qt Creator Files
-*.config
-*.creator
-*.files
-*.includes
-*.pro
+# macOS
+.DS_Store

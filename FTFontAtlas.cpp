@@ -1,40 +1,11 @@
-
 #include "FTFontAtlas.h"
 
 namespace FTGL{
-	/* using the FreeMono font from the GNU fonts collection. this is free and has a
-	"copy-left" licence. http://www.fontspace.com/gnu-freefont/freemono */
-	#define FONT_FILE_NAME "D:/Projects/RnD/FTGL/FontAtlas/Fonts/FreeMono.ttf"
-
-	int	FT_InitFreeType(){
-		FT_Library ft;
-		if (FT_Init_FreeType(&ft)) {
-			return 0;
-		}
-		return 1;
-	}
-
-	int FT_TestNewFace(const char* file_name, int size_px){
-		FT_Library ft;
-		if (FT_Init_FreeType(&ft)) {
-			fprintf(stderr, "Could not init FreeType library\n");
-			return 0;
-		}
-
-		FT_Face face;
-		if (FT_New_Face(ft, file_name, 0, &face)) {
-			fprintf(stderr, "Could not open font\n");
-			return 7;
-		}
-		return 2;
-	}
-
-
-	long FT_GetAtlasWidth(FTGL_FontAtlas* atlas){
+	int FT_GetAtlasWidth(FTGL_FontAtlas* atlas){
 		return atlas->width;
 	}
 
-	long FT_GetAtlasHeight(FTGL_FontAtlas* atlas){
+	int FT_GetAtlasHeight(FTGL_FontAtlas* atlas){
 		return atlas->height;
 	}
 
@@ -57,7 +28,7 @@ namespace FTGL{
 	FTGL_FontAtlas* FT_CreateFontAtlas(const char* file_name, int size_px, int err)
 	{
 		FT_Library ft;
-		if (FT_Init_FreeType(&ft)) {
+    if (FT_Init_FreeType(&ft)) {
 			fprintf(stderr, "Could not init FreeType library\n");
 			err = 1;
 			return NULL;
@@ -75,8 +46,8 @@ namespace FTGL{
 		FTGL_FontAtlas* atlas = (FTGL_FontAtlas*)malloc(sizeof(FTGL_FontAtlas));
 		FT_GlyphSlot g = face->glyph;
 		atlas->size_px = size_px;
-		long w = 0;
-		long h = 0;
+		size_t w = 0;
+		size_t h = 0;
 
 		int kFirst = 0;
 		int kLast = 256;
@@ -91,14 +62,16 @@ namespace FTGL{
 			}
 
 			w += g->bitmap.width + padding;
-			h = g->bitmap.rows>h ? g->bitmap.rows : h;
+      if(g->bitmap.rows > h) h = g->bitmap.rows;
+  
+			//h = g->bitmap.rows > h ? g->bitmap.rows : h;
 			//h = std::max(h, g->bitmap.rows);
 		}
-		atlas->width = w;
-		atlas->height = h;
+		atlas->width = static_cast<int>(w);
+		atlas->height = static_cast<int>(h);
 
 		// Allocate Buffer
-		unsigned int buffer_size = w * h * sizeof (unsigned char);
+		size_t buffer_size = w * h * sizeof (unsigned char);
 		atlas->buffer = (unsigned char*)malloc(buffer_size);
 		//sunsigned int atlas_buffer_index = 0;
 
@@ -111,21 +84,21 @@ namespace FTGL{
 
 			// Copy Buffer
 			//glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
-			for (int by = 0; by < g->bitmap.rows; by++){
-				for (int bx = 0; bx < g->bitmap.width; bx++){
+			for (size_t by = 0; by < g->bitmap.rows; by++){
+				for (size_t bx = 0; bx < g->bitmap.width; bx++){
 					atlas->buffer[by*atlas->width + x + bx] = g->bitmap.buffer[by*g->bitmap.width + bx];
 				}
 			}
 
 			// Set MetaDatas
-			atlas->metadata[i].ax = g->advance.x >> 6;
-			atlas->metadata[i].ay = g->advance.y >> 6;
+			atlas->metadata[i].ax = static_cast<float>(g->advance.x >> 6);
+			atlas->metadata[i].ay = static_cast<float>(g->advance.y >> 6);
 
-			atlas->metadata[i].bw = g->bitmap.width;
-			atlas->metadata[i].bh = g->bitmap.rows;
+			atlas->metadata[i].bw = static_cast<float>(g->bitmap.width);
+			atlas->metadata[i].bh = static_cast<float>(g->bitmap.rows);
 
-			atlas->metadata[i].bl = g->bitmap_left;
-			atlas->metadata[i].bt = g->bitmap_top;
+			atlas->metadata[i].bl = static_cast<float>(g->bitmap_left);
+			atlas->metadata[i].bt = static_cast<float>(g->bitmap_top);
 
 			atlas->metadata[i].tx = (float)x / atlas->width;
 			x += g->bitmap.width + padding;

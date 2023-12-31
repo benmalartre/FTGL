@@ -26,9 +26,9 @@ struct FTGL_GlyphInfos{
 
 struct FTGL_FontAtlas{
 	FTGL_GlyphInfos metadata[256];
-	uint64_t width;
-	uint64_t height;
-	uint64_t size_px;
+	int width;
+	int height;
+	int size_px;
 	unsigned char* buffer;
 };
 
@@ -36,15 +36,13 @@ struct FTGL_FontAtlas{
 #ifdef __cplusplus
 	extern "C" {
 #endif
-		extern int					FT_InitFreeType();
-		extern int					FT_TestNewFace(const char* file_name, int size_px = 32);
-		extern FTGL_FontAtlas*		FT_CreateFontAtlas(const char* file_name, int size_px = 32, int err = -1);
-		extern void					FT_DeleteFontAtlas(FTGL_FontAtlas* atlas);
+		extern FTGL_FontAtlas*	FT_CreateFontAtlas(const char* file_name, int size_px = 32, int err = -1);
+		extern void					    FT_DeleteFontAtlas(FTGL_FontAtlas* atlas);
 		/*
-		extern long                 FT_GetAtlasWidth(FTGL_FontAtlas* atlas);
-		extern long                 FT_GetAtlasHeight(FTGL_FontAtlas* atlas);
-		extern void*                FT_GetAtlasBuffer(FTGL_FontAtlas* atlas);
-		extern FTGL_GlyphInfos*     FT_GetGlyphMetadatas(FTGL_FontAtlas* atlas,int ID);
+		long                 FT_GetAtlasWidth(FTGL_FontAtlas* atlas);
+		long                 FT_GetAtlasHeight(FTGL_FontAtlas* atlas);
+		void*                FT_GetAtlasBuffer(FTGL_FontAtlas* atlas);
+		FTGL_GlyphInfos*     FT_GetGlyphMetadatas(FTGL_FontAtlas* atlas,int ID);
 		*/
 #ifdef __cplusplus
 	}
